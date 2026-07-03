@@ -1,6 +1,6 @@
-# 📊 Real-Time Market Data Pipeline & Trading Strategy Engine
+# Real-Time Market Data Pipeline & Trading Strategy Engine
 
-## 🧠 Overview
+## Overview
 
 This project is a modular trading system that ingests real market data, engineers financial features, generates trading signals, and evaluates strategy performance using backtesting and benchmark comparison against a Buy & Hold strategy.
 
@@ -8,35 +8,35 @@ The goal is to simulate a realistic quantitative trading workflow with proper ri
 
 ---
 
-## ⚙️ System Architecture
+## System Architecture
 
 ---
 
-## 🚀 Features
+## Features
 
-### 📥 Data Ingestion
+### Data Ingestion
 - Real-time market data fetched using Yahoo Finance API (`yfinance`)
 - Structured storage of OHLCV data
 - Multi-asset ready design
 
-### ⚙️ Feature Engineering
+### Feature Engineering
 - Returns calculation
 - Moving averages (MA5, MA20)
 - Rolling volatility
 - Momentum features
 
-### 📊 Signal Generation
+### Signal Generation
 - Moving Average crossover strategy
 - Buy/Sell/Hold signal generation
 - Lookahead bias prevention (signal shifting)
 
-### 📉 Backtesting Engine
+###  Backtesting Engine
 - Portfolio simulation with initial capital
 - Transaction cost modelling
 - Equity curve computation
 - Buy & Hold benchmark comparison
 
-### 📈 Performance Metrics
+### Performance Metrics
 - Sharpe Ratio
 - Maximum Drawdown
 - Win Rate
@@ -44,7 +44,7 @@ The goal is to simulate a realistic quantitative trading workflow with proper ri
 
 ---
 
-## 📊 Example Results
+## Example Results
 
 | Metric | Value |
 |--------|------|
@@ -56,7 +56,7 @@ The goal is to simulate a realistic quantitative trading workflow with proper ri
 
 ---
 
-## 📉 Key Insight
+## Key Insight
 
 The current simple moving average crossover strategy underperforms the market, highlighting the importance of:
 - better signal filtering
@@ -67,7 +67,7 @@ This project is designed as a **research and experimentation framework**, not a 
 
 ---
 
-## 🧠 What This Demonstrates
+## What This Demonstrates
 
 - Data engineering (pipeline design)
 - Financial modelling (returns, risk metrics)
@@ -77,7 +77,7 @@ This project is designed as a **research and experimentation framework**, not a 
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 - Python
 - Pandas
@@ -87,14 +87,14 @@ This project is designed as a **research and experimentation framework**, not a 
 
 ---
 
-## 📊 Visual Output
+##  Visual Output
 
 - Strategy vs Buy & Hold equity curve
 - Performance metrics comparison
 
 ---
 
-## 🚀 Future Improvements
+##  Future Improvements
 
 - Walk-forward validation
 - Multi-asset portfolio simulation
