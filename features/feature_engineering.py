@@ -1,16 +1,42 @@
 import pandas as pd
 
-def add_basic_features(df: pd.DataFrame) -> pd.DataFrame:
+from features.technical_indicators import (
+    get_close_column,
+    add_moving_averages,
+    add_volatility,
+    add_momentum,
+    add_rsi,
+    add_ema,
+    add_macd
+)
+
+
+def add_basic_features(df: pd.DataFrame):
+
     df = df.copy()
 
-    # detect close column dynamically
-    close_col = [c for c in df.columns if c.startswith("close")][0]
+    close_col = get_close_column(df)
 
+    # Basic return feature
     df["returns"] = df[close_col].pct_change()
-    df["ma_5"] = df[close_col].rolling(5).mean()
-    df["ma_20"] = df[close_col].rolling(20).mean()
-    df["volatility_20"] = df["returns"].rolling(20).std()
-    df["momentum"] = df[close_col] / df[close_col].shift(5) - 1
 
+
+    # Technical indicators
+    df = add_moving_averages(df)
+
+    df = add_volatility(df)
+
+    df = add_momentum(df)
+
+    df = add_rsi(df)
+
+    df = add_ema(df)
+
+    df = add_macd(df)
+
+
+    # Remove NaN created by rolling calculations
     df.dropna(inplace=True)
+
+
     return df
