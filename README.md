@@ -2,13 +2,24 @@
 
 ## Overview
 
-This project is a modular trading system that ingests real market data, engineers financial features, generates trading signals, and evaluates strategy performance using backtesting and benchmark comparison against a Buy & Hold strategy.
+This project is a modular quantitative trading system that ingests real market data, engineers financial features, generates trading signals, manages portfolio risk, and evaluates strategy performance through historical backtesting.
 
-The goal is to simulate a realistic quantitative trading workflow with proper risk metrics, transaction costs, and performance evaluation.
+The system simulates a realistic quantitative trading workflow including:
+
+- Market data ingestion
+- Feature engineering
+- Trading signal generation
+- Risk management
+- Portfolio simulation
+- Performance analytics
+- Benchmark comparison against Buy & Hold
+
+The goal is to build a production-style algorithmic trading pipeline using Python.
 
 ---
 
-## System Architecture
+# System Architecture
+
 
 ---
 
