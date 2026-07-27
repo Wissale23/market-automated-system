@@ -52,7 +52,7 @@ def run_backtest(
     # market returns
     df["market_return"] = df[price_col].pct_change()
 
-    # strategy returns (IMPORTANT: shift signal to avoid lookahead bias)
+    # strategy returns 
     df["strategy_return"] = (
         df["position"].shift(1)
         *
@@ -60,7 +60,7 @@ def run_backtest(
     )
 
     # -----------------------------
-    # Transaction costs (FIXED)
+    # Transaction costs 
     # -----------------------------
     trades = df["signal"].diff().abs().fillna(0)
     total_cost = transaction_cost + slippage
