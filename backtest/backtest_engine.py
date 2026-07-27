@@ -35,27 +35,37 @@ def calculate_metrics(df):
     
     
 
-def run_backtest(df: pd.DataFrame, initial_capital: float = 10000, transaction_cost: float = 0.001):
+def run_backtest(
+    df: pd.DataFrame,
+    initial_capital: float = 10000,
+    transaction_cost: float = 0.001,
+    slippage: float = 0.0005
+):
 
     df = df.copy()
 
     if "signal" not in df.columns:
         raise ValueError("Signal column missing")
-
+    
     price_col = [c for c in df.columns if c.startswith("close")][0]
 
     # market returns
     df["market_return"] = df[price_col].pct_change()
 
     # strategy returns (IMPORTANT: shift signal to avoid lookahead bias)
-    df["strategy_return"] = df["signal"].shift(1) * df["market_return"]
+    df["strategy_return"] = (
+        df["position"].shift(1)
+        *
+        df["market_return"]
+    )
 
     # -----------------------------
     # Transaction costs (FIXED)
     # -----------------------------
     trades = df["signal"].diff().abs().fillna(0)
-    df["strategy_return"] -= transaction_cost * trades
+    total_cost = transaction_cost + slippage
 
+    df["strategy_return"] -= total_cost * trades
     # equity curve
     df["equity_curve"] = (1 + df["strategy_return"].fillna(0)).cumprod()
 

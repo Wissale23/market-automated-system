@@ -1,12 +1,15 @@
 import pandas as pd
+from config.config import MAX_POSITION, STOP_LOSS
 
-
-def apply_risk_management(df, max_position=1.0, stop_loss=0.05):
+def apply_risk_management(df):
     """
     Controls position size and applies stop loss.
     """
 
     df = df.copy()
+
+    # Find ticker-specific close column
+    close_col = [col for col in df.columns if col.startswith("close_")][0]
 
     df["position"] = 0
 
@@ -16,7 +19,7 @@ def apply_risk_management(df, max_position=1.0, stop_loss=0.05):
         signal = df.loc[df.index[i], "signal"]
 
         if signal == 1:
-            df.loc[df.index[i], "position"] = max_position
+            df.loc[df.index[i], "position"] = MAX_POSITION
 
         elif signal == -1:
             df.loc[df.index[i], "position"] = 0
@@ -32,13 +35,13 @@ def apply_risk_management(df, max_position=1.0, stop_loss=0.05):
         if df.loc[df.index[i], "position"] > 0:
 
             if entry_price is None:
-                entry_price = df.loc[df.index[i], "close_aapl"]
+                entry_price = df.loc[df.index[i], close_col]
 
-            current_price = df.loc[df.index[i], "close_aapl"]
+            current_price = df.loc[df.index[i], close_col]
 
             loss = (current_price - entry_price) / entry_price
 
-            if loss < -stop_loss:
+            if loss < -STOP_LOSS:
                 df.loc[df.index[i], "position"] = 0
                 entry_price = None
 

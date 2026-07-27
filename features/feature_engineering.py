@@ -15,10 +15,11 @@ def add_basic_features(df: pd.DataFrame):
 
     df = df.copy()
 
-    close_col = get_close_column(df)
+    close_col = [c for c in df.columns if c.startswith("close_")][0]
 
-    # Basic return feature
-    df["returns"] = df[close_col].pct_change()
+
+    # Basic return feature (modifieD)
+    df["returns"] = df[close_col].pct_change(fill_method=None)
 
 
     # Technical indicators
