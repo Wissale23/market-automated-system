@@ -36,7 +36,6 @@ def add_basic_features(df: pd.DataFrame):
     df = add_macd(df)
 
 
-    # Remove NaN created by rolling calculations
     df.dropna(inplace=True)
 
 
