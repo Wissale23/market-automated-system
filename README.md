@@ -1,62 +1,25 @@
-# Real-Time Market Data Pipeline & Trading Strategy Engine
+# Market Automated System
 
-## Overview
-
-This project is a modular quantitative trading system that ingests real market data, engineers financial features, generates trading signals, manages portfolio risk, and evaluates strategy performance through historical backtesting.
-
-The system simulates a realistic quantitative trading workflow including:
-
-- Market data ingestion
-- Feature engineering
-- Trading signal generation
-- Risk management
-- Portfolio simulation
-- Performance analytics
-- Benchmark comparison against Buy & Hold
-
-The goal is to build a production-style algorithmic trading pipeline using Python.
-
----
-
-# System Architecture
-
-
----
+A quantitative trading research framework for multi-asset strategy development.
 
 ## Features
 
-### Data Ingestion
-- Real-time market data fetched using Yahoo Finance API (`yfinance`)
-- Structured storage of OHLCV data
-- Multi-asset ready design
+- Market data ingestion using Yahoo Finance
+- Technical indicator generation
+- Rule-based signal generation
+- Risk management and stop-loss
+- Backtesting engine with transaction costs
+- Portfolio optimisation
+- Performance analytics
 
-### Feature Engineering
-- Returns calculation
-- Moving averages (MA5, MA20)
-- Rolling volatility
-- Momentum features
+## Assets Tested
 
-### Signal Generation
-- Moving Average crossover strategy
-- Buy/Sell/Hold signal generation
-- Lookahead bias prevention (signal shifting)
+AAPL, MSFT, GOOG, META, AMZN, NVDA
 
-###  Backtesting Engine
-- Portfolio simulation with initial capital
-- Transaction cost modelling
-- Equity curve computation
-- Buy & Hold benchmark comparison
+## Metrics
 
-### Performance Metrics
 - Sharpe Ratio
 - Maximum Drawdown
+- Volatility
 - Win Rate
-- Total Strategy Return vs Market Return
-
-##  Tech Stack
-
-- Python
-- Pandas
-- NumPy
-- Matplotlib
-- yfinance
+- Strategy vs Buy & Hold
