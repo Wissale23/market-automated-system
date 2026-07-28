@@ -7,7 +7,10 @@ import numpy as np
 def calculate_metrics(df):
     returns = df["strategy_return"].dropna()
 
-    sharpe = np.sqrt(252) * returns.mean() / returns.std()
+    if returns.std() != 0:
+        sharpe = np.sqrt(252) * returns.mean() / returns.std()
+    else:
+        sharpe = 0
 
     cumulative = (1 + returns).cumprod()
     peak = cumulative.cummax()
@@ -15,6 +18,7 @@ def calculate_metrics(df):
 
     max_drawdown = drawdown.min()
     win_rate = (returns > 0).mean()
+    volatility = returns.std() * np.sqrt(252)
 
     # -------------------------
     # BUY & HOLD METRICS
@@ -27,6 +31,7 @@ def calculate_metrics(df):
 
     return {
         "sharpe_ratio": sharpe,
+        "volatility": volatility,
         "max_drawdown": max_drawdown,
         "win_rate": win_rate,
         "buy_hold_return_total": buy_hold_total,
@@ -36,10 +41,10 @@ def calculate_metrics(df):
     
 
 def run_backtest(
-    df: pd.DataFrame,
-    initial_capital: float = 10000,
-    transaction_cost: float = 0.001,
-    slippage: float = 0.0005
+    df,
+    initial_capital=10000,
+    transaction_cost=0.001,
+    slippage=0.0005
 ):
 
     df = df.copy()
@@ -47,10 +52,13 @@ def run_backtest(
     if "signal" not in df.columns:
         raise ValueError("Signal column missing")
     
+    if "position" not in df.columns:
+        raise ValueError("Position column missing")
+    
     price_col = [c for c in df.columns if c.startswith("close")][0]
 
     # market returns
-    df["market_return"] = df[price_col].pct_change()
+    df["market_return"] = df[price_col].pct_change(fill_method=None)
 
     # strategy returns 
     df["strategy_return"] = (

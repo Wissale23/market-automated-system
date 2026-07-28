@@ -1,18 +1,44 @@
 import pandas as pd
 
-def generate_signals(df: pd.DataFrame) -> pd.DataFrame:
+
+def generate_signals(
+    df: pd.DataFrame,
+    ma_short: int = 5,
+    ma_long: int = 20
+):
+
     df = df.copy()
 
-    # ensure correct columns exist
-    required = ["ma_5", "ma_20"]
-    for col in required:
-        if col not in df.columns:
-            raise ValueError(f"Missing column: {col}")
+    short_col = f"ma_{ma_short}"
+    long_col = f"ma_{ma_long}"
 
-    # signal logic
+
+    if short_col not in df.columns:
+        raise ValueError(
+            f"Missing column: {short_col}"
+        )
+
+    if long_col not in df.columns:
+        raise ValueError(
+            f"Missing column: {long_col}"
+        )
+
+
     df["signal"] = 0
 
-    df.loc[df["ma_5"] > df["ma_20"], "signal"] = 1   # BUY
-    df.loc[df["ma_5"] < df["ma_20"], "signal"] = -1  # SELL
+
+    # BUY
+    df.loc[
+        df[short_col] > df[long_col],
+        "signal"
+    ] = 1
+
+
+    # SELL
+    df.loc[
+        df[short_col] < df[long_col],
+        "signal"
+    ] = -1
+
 
     return df

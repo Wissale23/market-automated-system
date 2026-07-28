@@ -1,7 +1,6 @@
 import pandas as pd
 
 from features.technical_indicators import (
-    get_close_column,
     add_moving_averages,
     add_volatility,
     add_momentum,
@@ -11,10 +10,20 @@ from features.technical_indicators import (
 )
 
 
-def add_basic_features(df: pd.DataFrame):
-
+def add_basic_features(
+    df: pd.DataFrame,
+    ma_short: int = 5,
+    ma_long: int = 20
+):
+    
     df = df.copy()
+    
+    if ma_short >= ma_long:
+        raise ValueError(
+            "Short moving average must be smaller than long moving average"
+        )
 
+    
     close_col = [c for c in df.columns if c.startswith("close_")][0]
 
 
@@ -23,7 +32,11 @@ def add_basic_features(df: pd.DataFrame):
 
 
     # Technical indicators
-    df = add_moving_averages(df)
+    df = add_moving_averages(
+        df,
+        short_window=ma_short,
+        long_window=ma_long
+    )
 
     df = add_volatility(df)
 

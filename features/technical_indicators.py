@@ -14,7 +14,11 @@ def get_close_column(df):
     return close_cols[0]
 
 
-def add_moving_averages(df):
+def add_moving_averages(
+    df,
+    short_window=5,
+    long_window=20
+):
     """
     Add simple moving averages.
     """
@@ -23,8 +27,17 @@ def add_moving_averages(df):
 
     close_col = get_close_column(df)
 
-    df["ma_5"] = df[close_col].rolling(window=5).mean()
-    df["ma_20"] = df[close_col].rolling(window=20).mean()
+    df[f"ma_{short_window}"] = (
+        df[close_col]
+        .rolling(short_window)
+        .mean()
+    )
+
+    df[f"ma_{long_window}"] = (
+        df[close_col]
+        .rolling(long_window)
+        .mean()
+    )
 
     return df
 

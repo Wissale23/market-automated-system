@@ -1,7 +1,7 @@
 {
-    "sharpe_ratio": 0.7041111323262418,
-    "max_drawdown": -0.14415024531009205,
-    "win_rate": 0.24271844660194175,
-    "buy_hold_return_total": 0.08381956682691594,
-    "strategy_return_total": 0.06401041493219006
+    "sharpe_ratio": 0.6632526355853302,
+    "max_drawdown": -0.17073599616704802,
+    "win_rate": 0.2403846153846154,
+    "buy_hold_return_total": 0.0667974143522787,
+    "strategy_return_total": 0.05937530049611217
 }
