@@ -6,4 +6,3 @@ plotly==6.9.0
 matplotlib==3.10.3
 scipy==1.15.3
 scikit-learn
-pytest
